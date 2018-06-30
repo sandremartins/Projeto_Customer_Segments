@@ -1,0 +1,2564 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{customer\_segments\_PT}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Nanodegree Engenheiro de Machine
+Learning}\label{nanodegree-engenheiro-de-machine-learning}
+
+\subsection{Aprendizagem Não
+Supervisionada}\label{aprendizagem-nuxe3o-supervisionada}
+
+\subsection{Projeto 3: Criando Segmentos de
+Clientela}\label{projeto-3-criando-segmentos-de-clientela}
+
+    Bem-vindo ao terceiro projeto do Nanodegree Engenheiro de Machine
+Learning! Neste Notebook, alguns modelos de código já foram fornecidos e
+será seu trabalho implementar funcionalidades adicionais necessárias
+para completar seu projeto com êxito. Seções que começam com
+\textbf{'Implementação'} no cabeçalho indicam que os blocos de código
+seguintes vão precisar de funcionalidades adicionais que você deve
+fornecer. As instruções serão fornecidas para cada seção e as
+especificações da implementação são marcados no bloco de código com um
+\texttt{\textquotesingle{}TODO\textquotesingle{}}. Leia as instruções
+atentamente!
+
+Além de implementar códigos, há perguntas que você deve responder
+relacionadas ao projeto e a sua implementação. Cada seção na qual você
+responderá uma questão está precedida de um cabeçalho \textbf{'Questão
+X'}. Leia atentamente cada questão e forneça respostas completas nos
+boxes seguintes que começam com \textbf{'Resposta:'}. O envio do seu
+projeto será avaliado baseado nas suas respostas para cada uma das
+questões e na implementação que você forneceu.
+
+\begin{quote}
+\textbf{Nota:} Células de código e Markdown podem ser executadas
+utilizando o atalho do teclado \textbf{Shift+Enter}. Além disso, células
+de Markdown podem ser editadas ao dar duplo clique na célula para entrar
+no modo de edição.
+\end{quote}
+
+    \subsection{Começando}\label{comeuxe7ando}
+
+Neste projeto, você irá analisar o conjunto de dados de montantes de
+despesas anuais de vários clientes (reportados em \emph{unidades
+monetárias}) de diversas categorias de produtos para estrutura interna.
+Um objetivo deste projeto é melhor descrever a variação de diferentes
+tipos de clientes que um distribuidor de atacado interage. Isso dará ao
+distribuidor discernimento sobre como melhor estruturar seu serviço de
+entrega de acordo com as necessidades de cada cliente.
+
+O conjunto de dados deste projeto pode ser encontrado no
+\href{https://archive.ics.uci.edu/ml/datasets/Wholesale+customers}{Repositório
+de Machine Learning da UCI}. Para efeitos de projeto, os atributos
+\texttt{\textquotesingle{}Channel\textquotesingle{}} e
+\texttt{\textquotesingle{}Region\textquotesingle{}} serão excluídos da
+análise -- que focará então nas seis categorias de produtos registrados
+para clientes.
+
+Execute o bloco de código abaixo para carregar o conjunto de dados de
+clientes da distribuidora, junto com algumas das bibliotecas de Python
+necessárias exigidos para este projeto. Você saberá que o conjunto de
+dados carregou com êxito se o tamanho do conjunto de dados for
+reportado.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Importe as bibliotecas necessárias para este projeto}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{IPython.display} \PY{k+kn}{import} \PY{n}{display} \PY{c+c1}{\PYZsh{} Permite o uso de display() para DataFrames}
+        
+        \PY{c+c1}{\PYZsh{} Importe o código sumplementar para visualização de visuals.py}
+        \PY{k+kn}{import} \PY{n+nn}{visuals} \PY{k+kn}{as} \PY{n+nn}{vs}
+        
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.cross\PYZus{}validation} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.tree} \PY{k+kn}{import} \PY{n}{DecisionTreeRegressor}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.decomposition} \PY{k+kn}{import} \PY{n}{PCA}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.cluster} \PY{k+kn}{import} \PY{n}{KMeans}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.mixture} \PY{k+kn}{import} \PY{n}{GMM}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{n}{silhouette\PYZus{}score}
+        
+        \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{from} \PY{n+nn}{colors} \PY{k+kn}{import} \PY{o}{*}
+        
+        \PY{c+c1}{\PYZsh{} Mostre matplotlib no corpo do texto (bem formatado no Notebook)}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{} Carregue o conjunto de dados dos clientes da distribuidora de atacado}
+        \PY{k}{try}\PY{p}{:}
+            \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{customers.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Channel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+            \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wholesale customers dataset has \PYZob{}\PYZcb{} samples with \PYZob{}\PYZcb{} features each.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{k}{except}\PY{p}{:}
+            \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dataset could not be loaded. Is the dataset missing?}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Wholesale customers dataset has 440 samples with 6 features each.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/cross\_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model\_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{blue}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{o}{.}\PY{n}{write}\PY{p}{(}\PY{n}{BLUE}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} (440, 6)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{blue}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-blue-intense}{\textbf{<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 440 entries, 0 to 439
+Data columns (total 6 columns):
+Fresh               440 non-null int64
+Milk                440 non-null int64
+Grocery             440 non-null int64
+Frozen              440 non-null int64
+Detergents\_Paper    440 non-null int64
+Delicatessen        440 non-null int64
+dtypes: int64(6)
+memory usage: 20.7 KB
+}}
+    \end{Verbatim}
+
+    \subsection{Explorando os Dados}\label{explorando-os-dados}
+
+Nesta seção, você vai começar a explorar os dados através de
+visualizações e códigos para entender como cada atributo é relacionado a
+outros. Você vai observar descrições estatísticas do conjunto de dados,
+considerando a relevância de cada atributo, e selecionando alguns
+exemplos de pontos de dados do conjunto de dados que você vai seguir no
+decorrer do curso deste projeto.
+
+Execute o bloco de código abaixo para observar as descrições
+estatísticas sobre o conjunto de dados. Note que o conjunto é compostos
+de seis categorias importantes de produtos: \textbf{'Fresh'},
+\textbf{'Milk'}, \textbf{'Grocery'}, \textbf{'Frozen'},
+\textbf{'Detergents\_Paper'} e \textbf{'Delicatessen'} (Perecíveis,
+Lacticínios, Secos e Molhados, Congelados, Limpeza/Higiene,
+Padaria/Frios). Considere o que cada categoria representa em termos os
+produtos que você poderia comprar.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Mostre a descrição do conjunto de dados}
+        \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                Fresh          Milk       Grocery        Frozen  \textbackslash{}
+        count     440.000000    440.000000    440.000000    440.000000   
+        mean    12000.297727   5796.265909   7951.277273   3071.931818   
+        std     12647.328865   7380.377175   9503.162829   4854.673333   
+        min         3.000000     55.000000      3.000000     25.000000   
+        25\%      3127.750000   1533.000000   2153.000000    742.250000   
+        50\%      8504.000000   3627.000000   4755.500000   1526.000000   
+        75\%     16933.750000   7190.250000  10655.750000   3554.250000   
+        max    112151.000000  73498.000000  92780.000000  60869.000000   
+        
+               Detergents\_Paper  Delicatessen  
+        count        440.000000    440.000000  
+        mean        2881.493182   1524.870455  
+        std         4767.854448   2820.105937  
+        min            3.000000      3.000000  
+        25\%          256.750000    408.250000  
+        50\%          816.500000    965.500000  
+        75\%         3922.000000   1820.250000  
+        max        40827.000000  47943.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} Fresh               int64
+        Milk                int64
+        Grocery             int64
+        Frozen              int64
+        Detergents\_Paper    int64
+        Delicatessen        int64
+        dtype: object
+\end{Verbatim}
+            
+    \subsubsection{Implementação: Selecionando
+Amostras}\label{implementauxe7uxe3o-selecionando-amostras}
+
+Para melhor compreensão da clientela e como seus dados vão se
+transformar no decorrer da análise, é melhor selecionar algumas amostras
+de dados de pontos e explorá-los com mais detalhes. No bloco de código
+abaixo, adicione \textbf{três} índices de sua escolha para a lista de
+\texttt{indices} que irá representar os clientes que serão acompanhados.
+Sugerimos que você tente diferentes conjuntos de amostras até obter
+clientes que variam significativamente entre si.
+
+    \subsubsection{Questão 1}\label{questuxe3o-1}
+
+Considere que a compra total de cada categoria de produto e a descrição
+estatística do conjunto de dados abaixo para a sua amostra de
+clientes.\\
+- Que tipo de estabelecimento (de cliente) cada uma das três amostras
+que você escolheu representa?
+
+\textbf{Dica:} Exemplos de estabelecimentos incluem lugares como
+mercados, cafés e varejistas, entre outros. Evite utilizar nomes para
+esses padrões, como dizer \emph{"McDonalds"} ao descrever uma amostra de
+cliente de restaurante.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} TODO: Selecione três índices de sua escolha que você gostaria de obter como amostra do conjunto de dados}
+        \PY{n}{indices} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{86}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{,}\PY{l+m+mi}{325}\PY{p}{]}
+        \PY{n}{blue}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Crie um DataFrame das amostras escolhidas}
+        \PY{n}{samples} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Chosen samples of wholesale customers dataset:}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{display}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-blue-intense}{\textbf{Chosen samples of wholesale customers dataset:
+}}
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+   Fresh   Milk  Grocery  Frozen  Detergents_Paper  Delicatessen
+0  22925  73498    32114     987             20070           903
+1  76237   3473     7102   16538               778           918
+2  32717  16784    13626   60869              1272          5609
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{cmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{samples}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cbar} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{robust} \PY{o}{=} \PY{n+nb}{bool}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Visao da Amostra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Text(0.5,1,'Visao da Amostra')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Visao de Quartil do Conjunto de Dados}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{quartil} \PY{o}{=} \PY{l+m+mi}{100} \PY{o}{*} \PY{n}{data}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{pct} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{decimals} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{quartil}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{robust} \PY{o}{=} \PY{n+nb}{bool}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a16376310>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} remover, nao foi util}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Visao da Diferenca da Amostra \PYZam{} Media do Conjunto de Dados}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{samples} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{around}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                     \PY{n}{annot} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.0f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cbar} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{robust} \PY{o}{=} \PY{n+nb}{bool}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a164c0cd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fresh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Milk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grocery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frozen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Detergents\PYZus{}Paper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Delicatessen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{setp}\PY{p}{(}\PY{n}{axes}\PY{p}{,} \PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     Três amostras diferentes dos dados são escolhidas, e o que elas
+representam é proposto com base na descrição estatística dos dados. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+O cliente 86 tem um custo abaixo da mediana do conjunto de dados em delicatessen e congelados, por outro lado gastou acima do quartil 3 em laticínios, detergente/papel e produtos frescos sendo que o predominante foi os laticínios. Aproximadamente a metade do próprio consumo é em laticínios. Por ter baixo consumo em delicatessen e congelados, me leva a sugerir que é um varejista de leite e seus derivados, como: queijo, manteiga e coalhada. Entretanto, esse cliente compra deliberadamente produtos de mercearia e frios, que podem ser usados na produção e embalagem de doces, sorvetes, iogurtes e outros. Pode ser um restaurante que serve quitutes a uma soverteria com fabricação própria ou uma padaria.
+</p>
+<p>
+O consumo do cliente 125 é predominantemente de alimentos frescos e também consume congelados acima do quartil 3 e acima do quartil 2 consome produtos de mercearia. Me leva a sugerir que é um restaurante ou um café pelo consumo de produtos frescos e congelados.
+</p>
+<p>
+Acredito que o cliente 325 seja um restaurante ou um café regional. Pois tem um custo no topo do quartil 3 em congelados e pulveriza as demais categorias de produtos no mesmo quartil com exceção dos produtos de detergentes/papeis que ficam um pouco acima da mediana do conjunto de dados. 
+</p>
+\end{verbatim}
+
+    \subsubsection{Implementação: Relevância do
+Atributo}\label{implementauxe7uxe3o-relevuxe2ncia-do-atributo}
+
+Um pensamento interessante a se considerar é se um (ou mais) das seis
+categorias de produto são na verdade relevantes para entender a compra
+do cliente. Dito isso, é possível determinar se o cliente que comprou
+certa quantidade de uma categoria de produto vai necessariamente comprar
+outra quantidade proporcional de outra categoria de produtos? Nós
+podemos determinar facilmente ao treinar uma aprendizagem não
+supervisionada de regressão em um conjunto de dados com um atributo
+removido e então pontuar quão bem o modelo pode prever o atributo
+removido.
+
+No bloco de código abaixo, você precisará implementar o seguinte: -
+Atribuir \texttt{new\_data} a uma cópia dos dados ao remover o atributo
+da sua escolha utilizando a função \texttt{DataFrame.drop}. - Utilizar
+\texttt{sklearn.cross\_validation.train\_test\_split} para dividir o
+conjunto de dados em conjuntos de treinamento e teste. - Utilizar o
+atributo removido como seu rótulo alvo. Estabelecer um
+\texttt{test\_size} de \texttt{0.25} e estebeleça um
+\texttt{random\_state}. - Importar uma árvore de decisão regressora,
+estabelecer um \texttt{random\_state} e ajustar o aprendiz nos dados de
+treinamento. - Reportar a pontuação da previsão do conjunto de teste
+utilizando a função regressora \texttt{score}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{categoria\PYZus{}score}\PY{p}{(}\PY{n}{categoria}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} TODO: Fazer uma cópia do DataFrame utilizando a função \PYZsq{}drop\PYZsq{} para soltar o atributo dado}
+             \PY{n}{new\PYZus{}data} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{n}{categoria}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{n+nb+bp}{False}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} TODO: Dividir os dados em conjuntos de treinamento e teste utilizando o atributo dado como o alvo}
+             \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{new\PYZus{}data}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Delicatessen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                                                 \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{33}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} TODO: Criar um árvore de decisão regressora e ajustá\PYZhy{}la ao conjunto de treinamento}
+             \PY{n}{regressor} \PY{o}{=} \PY{n}{DecisionTreeRegressor}\PY{p}{(}\PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{33}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} TODO: Reportar a pontuação da previsão utilizando o conjunto de teste}
+             \PY{n}{score} \PY{o}{=} \PY{n}{regressor}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+             \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{O score de \PYZob{}\PYZcb{} é \PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{categoria}\PY{p}{,} \PY{n}{score}\PY{p}{)}
+         
+         \PY{n}{categorias} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         
+         \PY{n}{blue}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{categorias}\PY{p}{:}
+             \PY{n}{categoria\PYZus{}score}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-blue-intense}{\textbf{O score de Fresh é 0.998877549814
+O score de Milk é 0.994878266936
+O score de Grocery é 0.994845192055
+O score de Frozen é 0.994777595215
+O score de Detergents\_Paper é -13.9085126295
+O score de Delicatessen é -17.883606617
+}}
+    \end{Verbatim}
+
+    \subsubsection{Questão 2}\label{questuxe3o-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Qual atributo você tentou prever?
+\item
+  Qual foi a pontuação da previsão reportada?
+\item
+  Esse atributo é necessário para identificar os hábitos de compra dos
+  clientes?
+\end{itemize}
+
+\textbf{Dica:} O coeficiente de determinação, \texttt{R\^{}2}, é
+pontuado entre 0 e 1, sendo 1 o ajuste perfeito. Um \texttt{R\^{}2}
+negativo indica que o modelo falhou em ajustar os dados. Se você obter
+um score baixo para um atributo em particular, isso nos faz acreditar
+que aquele ponto de atributo é difícil de ser previsto utilizando outros
+atributos, sendo assim um atributo importante quando considerarmos a
+relevância.
+
+     A pontuação do atributo removido foi corretamente calculada. A resposta
+justifica se o atributo removido é relevante. 
+
+    \textbf{Resposta:} A principio eu escolhi Delicatessen , como seu
+\texttt{R\^{}2} deu negativo pensei em fazer com Detergents\_Paper. O
+\texttt{R\^{}2} Detergents\_Paper também deu negativo. O modelo de
+regressão de arvore de decisão falhou ao dataset, logo esses resultados
+são críticos. Então fiz uma implementação para ver o \texttt{R\^{}2} de
+todos os atributos e poder comparar. Os \texttt{R\^{}2} dos Frios,
+Laticínios, Congelados e de Mercearia são muito bons, sendo os mais
+fáceis de prever, assim não são tão relevantes para identificar os
+hábitos dos consumidores. Porem, esses atributos se correlacionam muito
+bem. Acredito que Delicatessen e Detergents\_Paper são atributos
+importantes para prever os hábitos dos clientes, mesmo que o modelo
+tenha falhado quando foram removidos. Isso nos alerta que são atributos
+críticos. 
+
+    \subsubsection{Visualizando a Distribuição de
+Atributos}\label{visualizando-a-distribuiuxe7uxe3o-de-atributos}
+
+Para entender melhor o conjunto de dados, você pode construir uma matriz
+de dispersão de cada um dos seis atributos dos produtos presentes nos
+dados. Se você perceber que o atributo que você tentou prever acima é
+relevante para identificar um cliente específico, então a matriz de
+dispersão abaixo pode não mostrar nenhuma relação entre o atributo e os
+outros. Da mesma forma, se você acredita que o atributo não é relevante
+para identificar um cliente específico, a matriz de dispersão pode
+mostrar uma relação entre aquele e outros atributos dos dados. Execute o
+bloco de código abaixo para produzir uma matriz de dispersão.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Produza uma matriz de dispersão para cada um dos pares de atributos dos dados}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{diagonal} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kde}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/ipykernel\_launcher.py:2: FutureWarning: pandas.scatter\_matrix is deprecated. Use pandas.plotting.scatter\_matrix instead
+  
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Questão 3:}\label{questuxe3o-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Usando a matriz de dispersão como referência, discuta a distribuição
+  da base de dados. Elabore sua resposta considerando a normalidade,
+  \emph{outliers}, a grande quantidade de pontos próximo de 0 e outras
+  coisas que julgar importante. Se necessário, você pode realizar outros
+  plots para complementar sua explicação.
+\item
+  Há algum par de atributos que mostra algum grau de correlação?
+\item
+  Como isso confirma ou nega a suspeita sobre relevância do atributo que
+  você tentou prever?
+\item
+  Como os dados desses atributos são distribuidos?
+\end{itemize}
+
+\textbf{Dica:} Os dados são distribuídos normalmente? Onde a maioria dos
+pontos estão? Você pode usar
+\href{https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.corr.html}{corr()}
+para ver a correlação dos atributos e visualiza-los utilizando um
+\href{http://seaborn.pydata.org/generated/seaborn.heatmap.html}{heatmap}(os
+dados que alimentam o heatmap seriam as correlações, por exemplo
+\texttt{data.corr()})
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Visão de correlação entre as m.u. das categorias}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{corr}\PY{p}{)}
+         \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{True}
+         \PY{k}{with} \PY{n}{sns}\PY{o}{.}\PY{n}{axes\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{mask} \PY{o}{=} \PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{cbar}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Correlacao entre as m.u. das categorias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} Text(0.5,1,'Correlacao entre as m.u. das categorias')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{husl}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     Atributos correlacionados são corretamente identificados e comparados
+com o atributo previsto. A distribuição dos dados para esses atributos é
+discutida. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+As categorias Mercearia e Detergentes/Papeis mostram uma tendencia linear e é o par mais correlacionado do conjunto de dados com 0,92 de coeficiente.
+</p>
+<p>
+Existe outras duas correlações moderadas, mas elas são bastante enviesadas. Os Laticínios se correlacionam bem com a Mercearia e com Detergentes/Papeis com respectivos coeficiente de 0,73 e 0,66.
+</p>
+<p>
+A categoria de Detergentes/Papeis também tem uma boa tendencia e se correlaciona bem com Laticínios e Mercearia, portanto tem pouca relevância diante do conjunto de dados para identificar os hábitos dos consumidores. Essa categoria era um dos meus palpites que influenciava, mas o modelo tinha falhado, era somente um palpite mal esclarecido. 
+</p>
+<p>
+O modelo falha na distribuição das categorias porque a distribuição da base de dados é defasada. A distribuição tem poucos valores aberrantes, tendo em vista que a concentração deles é próxima de zero e a quantidade de registros, é bom escalonar os atributos para fazer uma distribuição normal do conjunto de dados. Isso tambem vai diminuir a diferença entre a média e a mediana, pois está com um desvio muito grande.
+</p>
+<p>
+A Delicatessen é a que se confirma com relevante para identificar os hábitos do consumidor. 
+</p>
+\end{verbatim}
+
+    \subsection{Pré-processamento de
+Dados}\label{pruxe9-processamento-de-dados}
+
+Nesta seção, você irá pré-processar os dados para criar uma melhor
+representação dos clientes ao executar um escalonamento dos dados e
+detectando os discrepantes. Pré-processar os dados é geralmente um passo
+fundamental para assegurar que os resultados obtidos na análise são
+importantes e significativos.
+
+    \subsubsection{Implementação: Escalonando
+Atributos}\label{implementauxe7uxe3o-escalonando-atributos}
+
+Se os dados não são distribuídos normalmente, especialmente se a média e
+a mediana variam significativamente (indicando um grande desvio), é
+quase sempre {[}apropriado{]}
+{]}(http://econbrowser.com/archives/2014/02/use-of-logarithms-in-economics)
+aplicar um escalonamento não linear -- particularmente para dados
+financeiros. Uma maneira de conseguir escalonar dessa forma é utilizando
+o
+\href{http://scipy.github.io/devdocs/generated/scipy.stats.boxcox.html}{teste
+Box-Cox}, que calcula o melhor poder de transformação dos dados, que
+reduzem o desvio. Uma abordagem simplificada que pode funcionar na
+maioria dos casos seria aplicar o algoritmo natural.
+
+No bloco de código abaixo, você vai precisar implementar o seguinte: -
+Atribua uma cópia dos dados para o \texttt{log\_data} depois de aplicar
+um algoritmo de escalonamento. Utilize a função \texttt{np.log} para
+isso. - Atribua uma cópia da amostra do dados para o
+\texttt{log\_samples} depois de aplicar um algoritmo de escalonamento.
+Novamente, utilize o \texttt{np.log}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} TODO: Escalone os dados utilizando o algoritmo natural }
+         \PY{n}{log\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Escalone a amostra de dados utilizando o algoritmo natural}
+         \PY{n}{log\PYZus{}samples} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{samples}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Produza uma matriz de dispersão para cada par de atributos novos\PYZhy{}transformados}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{log\PYZus{}data}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{diagonal} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{kde}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/ipykernel\_launcher.py:8: FutureWarning: pandas.scatter\_matrix is deprecated. Use pandas.plotting.scatter\_matrix instead
+  
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Visão de correlação entre as m.u. das categorias depois da normalização}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{log\PYZus{}data}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{corr}\PY{p}{)}
+         \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{True}
+         \PY{k}{with} \PY{n}{sns}\PY{o}{.}\PY{n}{axes\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{mask} \PY{o}{=} \PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{cbar}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Novo visao de correlacao entre as m.u. das categorias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} Text(0.5,1,'Novo visao de correlacao entre as m.u. das categorias')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{log\PYZus{}data}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{husl}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Observação}\label{observauxe7uxe3o}
+
+Após aplicar o algoritmo natural para o escalonamento dos dados, a
+distribuição para cada atributo deve parecer mais normalizado. Para
+muitos pares de atributos, você vai precisar identificar anteriormente
+como sendo correlacionados, observe aqui se essa correlação ainda está
+presente (e se está mais forte ou mais fraca que antes).
+
+Execute o código abaixo para ver como a amostra de dados mudou depois do
+algoritmo natural ter sido aplicado a ela.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Mostre a amostra dados log\PYZhy{}transformada}
+         \PY{n}{display}\PY{p}{(}\PY{n}{log\PYZus{}samples}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+       Fresh       Milk    Grocery     Frozen  Detergents_Paper  Delicatessen
+0  10.039983  11.205013  10.377047   6.894670          9.906981      6.805723
+1  11.241602   8.152774   8.868132   9.713416          6.656727      6.822197
+2  10.395650   9.728181   9.519735  11.016479          7.148346      8.632128
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{cmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{log\PYZus{}samples}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.2f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{cbar} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{robust} \PY{o}{=} \PY{n+nb}{bool}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nova Visao da Amostra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} Text(0.5,1,'Nova Visao da Amostra')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nova Visao de Quartil do Conjunto de Dados}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{quartil} \PY{o}{=} \PY{l+m+mi}{100} \PY{o}{*} \PY{n}{log\PYZus{}data}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{pct} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{decimals} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{quartil}\PY{p}{,} \PY{n}{annot} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{cmap} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.1f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{robust} \PY{o}{=} \PY{n+nb}{bool}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a1730dbd0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{\texorpdfstring{Implementação: Detecção de valores
+atípicos
+(\emph{Outlier})}{Implementação: Detecção de valores atípicos (Outlier)}}\label{implementauxe7uxe3o-detecuxe7uxe3o-de-valores-atuxedpicos-outlier}
+
+Identificar dados discrepantes é extremamente importante no passo de
+pré-processamento de dados de qualquer análise. A presença de
+discrepantes podem enviesar resultados que levam em consideração os
+pontos de dados. Há muitas "regras básicas" que constituem um
+discrepante em um conjunto de dados. Aqui usaremos
+\href{http://datapigtechnologies.com/blog/index.php/highlighting-outliers-in-your-data-with-the-tukey-method/}{o
+Método Turco para identificar valores atípicos}: Um \emph{passo do
+discrepante} é calculado 1,5 vezes a variação interquartil (IQR). Um
+ponto de dados com um atributo que está além de um passo de um
+discrepante do IQR para aquele atributo, ele é considerado anormal.
+
+No bloco de código abaixo, você vai precisar implementar o seguinte: -
+Atribuir o valor do 25º percentil do atributo dado para o \texttt{Q1}.
+Utilizar \texttt{np.percentile} para isso. - Atribuir o valor do 75º
+percentil do atributo dado para o \texttt{Q3}. Novamente, utilizar
+\texttt{np.percentile}. - Atribuir o cálculo de um passo do discrepante
+do atributo dado para o \texttt{step}. - Remover opcionalmentos os
+pontos de dados do conjunto de dados ao adicionar índices à lista de
+\texttt{outliers}.
+
+\textbf{NOTA:} Se você escolheu remover qualquer discrepante, tenha
+certeza que a amostra de dados não contém nenhum desses pontos!\\
+Uma vez que você executou essa implementação, o conjunto de dado será
+armazenado na variável \texttt{good\_data}!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Lista das outliers}
+         \PY{n}{outliers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Para cada atributo encontre os pontos de dados com máximos valores altos e baixos}
+         \PY{k}{for} \PY{n}{feature} \PY{o+ow}{in} \PY{n}{log\PYZus{}data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Calcule Q1 (25º percentil dos dados) para o atributo dado}
+             \PY{n}{Q1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{log\PYZus{}data}\PY{p}{[}\PY{n}{feature}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Calcule Q3 (75º percentil dos dados) para o atributo dado}
+             \PY{n}{Q3} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{log\PYZus{}data}\PY{p}{[}\PY{n}{feature}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{75}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Utilize a amplitude interquartil para calcular o passo do discrepante (1,5 vezes a variação interquartil)}
+             \PY{n}{step} \PY{o}{=} \PY{l+m+mf}{1.5} \PY{o}{*} \PY{p}{(}\PY{n}{Q3} \PY{o}{\PYZhy{}} \PY{n}{Q1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}print \PYZdq{}Outlier step:\PYZdq{}, step}
+             \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Passo do discrepante:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{step}
+             \PY{n}{feature\PYZus{}outliers} \PY{o}{=} \PY{n}{log\PYZus{}data}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{p}{(}\PY{n}{log\PYZus{}data}\PY{p}{[}\PY{n}{feature}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{Q1} \PY{o}{\PYZhy{}} \PY{n}{step}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{log\PYZus{}data}\PY{p}{[}\PY{n}{feature}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{Q3} \PY{o}{+} \PY{n}{step}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+             \PY{c+c1}{\PYZsh{} Mostre os discrepantes}
+             \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{} Pontos de dados considerados discrepantes para o atributo }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}outliers}\PY{p}{)}\PY{p}{,} \PY{n}{feature}\PY{p}{)}
+         
+             \PY{n}{display}\PY{p}{(}\PY{n}{feature\PYZus{}outliers}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} OPCIONAL: Selecione os índices dos pontos de dados que você deseja remover}
+             \PY{n}{outliers} \PY{o}{+}\PY{o}{=} \PY{n}{feature\PYZus{}outliers}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} lista de outliers duplicados}
+         \PY{n}{duplicados} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{outliers} \PY{k}{if} \PY{n}{outliers}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}    
+         
+         \PY{c+c1}{\PYZsh{} Remova os valores atí, caso nenhum tenha sido especificado}
+         \PY{n}{good\PYZus{}data} \PY{o}{=} \PY{n}{log\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{log\PYZus{}data}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{outliers}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{O conjunto de dados com valores discrepantes removidos tem \PYZob{}\PYZcb{} amostras de dados.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+             \PY{n+nb}{len}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} é bom traduzir}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Foram identificados \PYZob{}\PYZcb{} passos discrepantes, sendo que \PYZob{}\PYZcb{} se repetiram, para fins de contas da amostra de dados acima.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+             \PY{n+nb}{len}\PY{p}{(}\PY{n}{outliers}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{duplicados}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} é bom traduzir}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Passo do discrepante: 2.533507868606793
+16 Pontos de dados considerados discrepantes para o atributo 'Fresh':
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+        Fresh       Milk    Grocery    Frozen  Detergents_Paper  Delicatessen
+65   4.442651   9.950323  10.732651  3.583519         10.095388      7.260523
+66   2.197225   7.335634   8.911530  5.164786          8.151333      3.295837
+81   5.389072   9.163249   9.575192  5.645447          8.964184      5.049856
+95   1.098612   7.979339   8.740657  6.086775          5.407172      6.563856
+96   3.135494   7.869402   9.001839  4.976734          8.262043      5.379897
+128  4.941642   9.087834   8.248791  4.955827          6.967909      1.098612
+171  5.298317  10.160530   9.894245  6.478510          9.079434      8.740337
+193  5.192957   8.156223   9.917982  6.865891          8.633731      6.501290
+218  2.890372   8.923191   9.629380  7.158514          8.475746      8.759669
+304  5.081404   8.917311  10.117510  6.424869          9.374413      7.787382
+305  5.493061   9.468001   9.088399  6.683361          8.271037      5.351858
+338  1.098612   5.808142   8.856661  9.655090          2.708050      6.309918
+353  4.762174   8.742574   9.961898  5.429346          9.069007      7.013016
+355  5.247024   6.588926   7.606885  5.501258          5.214936      4.844187
+357  3.610918   7.150701  10.011086  4.919981          8.816853      4.700480
+412  4.574711   8.190077   9.425452  4.584967          7.996317      4.127134
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Passo do discrepante: 2.318248272818475
+4 Pontos de dados considerados discrepantes para o atributo 'Milk':
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+         Fresh       Milk    Grocery    Frozen  Detergents_Paper  Delicatessen
+86   10.039983  11.205013  10.377047  6.894670          9.906981      6.805723
+98    6.220590   4.718499   6.656727  6.796824          4.025352      4.882802
+154   6.432940   4.007333   4.919981  4.317488          1.945910      2.079442
+356  10.029503   4.897840   5.384495  8.057377          2.197225      6.306275
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Passo do discrepante: 2.3988562137971394
+2 Pontos de dados considerados discrepantes para o atributo 'Grocery':
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+        Fresh      Milk   Grocery    Frozen  Detergents_Paper  Delicatessen
+75   9.923192  7.036148  1.098612  8.390949          1.098612      6.882437
+154  6.432940  4.007333  4.919981  4.317488          1.945910      2.079442
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Passo do discrepante: 2.3493275010092116
+10 Pontos de dados considerados discrepantes para o atributo 'Frozen':
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+         Fresh      Milk    Grocery     Frozen  Detergents_Paper  Delicatessen
+38    8.431853  9.663261   9.723703   3.496508          8.847360      6.070738
+57    8.597297  9.203618   9.257892   3.637586          8.932213      7.156177
+65    4.442651  9.950323  10.732651   3.583519         10.095388      7.260523
+145  10.000569  9.034080  10.457143   3.737670          9.440738      8.396155
+175   7.759187  8.967632   9.382106   3.951244          8.341887      7.436617
+264   6.978214  9.177714   9.645041   4.110874          8.696176      7.142827
+325  10.395650  9.728181   9.519735  11.016479          7.148346      8.632128
+420   8.402007  8.569026   9.490015   3.218876          8.827321      7.239215
+429   9.060331  7.467371   8.183118   3.850148          4.430817      7.824446
+439   7.932721  7.437206   7.828038   4.174387          6.167516      3.951244
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Passo do discrepante: 4.0893587609383335
+2 Pontos de dados considerados discrepantes para o atributo 'Detergents\_Paper':
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+        Fresh      Milk   Grocery    Frozen  Detergents_Paper  Delicatessen
+75   9.923192  7.036148  1.098612  8.390949          1.098612      6.882437
+161  9.428190  6.291569  5.645447  6.995766          1.098612      7.711101
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Passo do discrepante: 2.2422806544219394
+14 Pontos de dados considerados discrepantes para o atributo 'Delicatessen':
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+         Fresh       Milk    Grocery     Frozen  Detergents_Paper  \
+66    2.197225   7.335634   8.911530   5.164786          8.151333   
+109   7.248504   9.724899  10.274568   6.511745          6.728629   
+128   4.941642   9.087834   8.248791   4.955827          6.967909   
+137   8.034955   8.997147   9.021840   6.493754          6.580639   
+142  10.519646   8.875147   9.018332   8.004700          2.995732   
+154   6.432940   4.007333   4.919981   4.317488          1.945910   
+183  10.514529  10.690808   9.911952  10.505999          5.476464   
+184   5.789960   6.822197   8.457443   4.304065          5.811141   
+187   7.798933   8.987447   9.192075   8.743372          8.148735   
+203   6.368187   6.529419   7.703459   6.150603          6.860664   
+233   6.871091   8.513988   8.106515   6.842683          6.013715   
+285  10.602965   6.461468   8.188689   6.948897          6.077642   
+289  10.663966   5.655992   6.154858   7.235619          3.465736   
+343   7.431892   8.848509  10.177932   7.283448          9.646593   
+
+     Delicatessen  
+66       3.295837  
+109      1.098612  
+128      1.098612  
+137      3.583519  
+142      1.098612  
+154      2.079442  
+183     10.777768  
+184      2.397895  
+187      1.098612  
+203      2.890372  
+233      1.945910  
+285      2.890372  
+289      3.091042  
+343      3.610918  
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+O conjunto de dados com valores discrepantes removidos tem 398 amostras de dados.
+Foram identificados 48 passos discrepantes, sendo que 5 se repetiram, para fins de contas da amostra de dados acima.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{,} \PY{n}{palette}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{husl}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{diag\PYZus{}kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kde}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{good\PYZus{}data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}             Fresh        Milk     Grocery      Frozen  Detergents\_Paper  \textbackslash{}
+         count  398.000000  398.000000  398.000000  398.000000        398.000000   
+         mean     8.933438    8.121251    8.418637    7.429215          6.787511   
+         std      1.116110    1.007751    1.011809    1.129943          1.610957   
+         min      5.541264    5.303305    5.407172    4.510860          1.609438   
+         25\%      8.304866    7.376038    7.661527    6.721426          5.573103   
+         50\%      9.116895    8.191878    8.427922    7.455588          6.669498   
+         75\%      9.739143    8.825039    9.186270    8.228172          8.205335   
+         max     11.627601   10.901524   11.437986   10.463360         10.617099   
+         
+                Delicatessen  
+         count    398.000000  
+         mean       6.801190  
+         std        1.029976  
+         min        3.828641  
+         25\%        6.105339  
+         50\%        6.905249  
+         75\%        7.512071  
+         max        9.712509  
+\end{Verbatim}
+            
+    \subsubsection{Questão 4}\label{questuxe3o-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Há alguns pontos de dado considerados discrepantes de mais de um
+  atributo baseado na definição acima?
+\item
+  Esses pontos de dados deveriam ser removidos do conjunto?
+\item
+  Se qualquer ponto de dados foi adicionado na lista \texttt{outliers}
+  para ser removido, explique por quê.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{display}\PY{p}{(}\PY{n}{duplicados}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+[128, 65, 66, 75, 154]
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}Visão de correlação entre as m.u. das categorias dos dados escalonados}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{good\PYZus{}data}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{corr}\PY{p}{)}
+         \PY{n}{mask}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{triu\PYZus{}indices\PYZus{}from}\PY{p}{(}\PY{n}{mask}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{True}
+         \PY{k}{with} \PY{n}{sns}\PY{o}{.}\PY{n}{axes\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{corr}\PY{p}{,} \PY{n}{mask} \PY{o}{=} \PY{n}{mask}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlGnBu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{,} \PY{n}{cbar}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mapa de correlacao entre as m.u. das categorias escalonadas}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Text(0.5,1,'Mapa de correlacao entre as m.u. das categorias escalonadas')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{good\PYZus{}data}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{whis}\PY{o}{=}\PY{l+m+mf}{1.5}\PY{p}{,} \PY{n}{patch\PYZus{}artist}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a17bbb510>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fresh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Milk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Grocery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frozen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Detergents\PYZus{}Paper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Delicatessen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{ax}\PY{o}{=}\PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{setp}\PY{p}{(}\PY{n}{axes}\PY{p}{,} \PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     Os valores aberrantes extremos são identificados, e discute-se se eles
+deveriam ser removidos. A decisão de remover quaisquer dados é
+corretamente justificada. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+Temos 5 pontos duplamente discrepantes: 128, 65, 66, 75, 154.
+</p>
+<p>
+A correlação entre as categorias com os outliers e sem os outliers tem resultados semelhantes, e houve uma diferença em remove-los, mesmo os outliers sendo moderados. Depois que os atributos foram escalonados, a amplitude entre a média e a mediana ficou muito pequena se comparação com os originais. O desvio padrão também ficou pequeno como podemos ver no distplot. Os quartis também ficaram muito próximos. Isso pode ser reflexo dos diferentes níveis dos clientes. Optei por remover os discrepantes, acredito que o vies que eles causam pode mudar as suposições. Dois dos outliers fazem parte da amostra que escolhi, o 86 e o 325, portando as amostras mudaram pois são baseadas nos index e os index foram redefinidos. Considerando os outliers uma manifestação natural da variabilidade entre os clientes.
+</p>
+<p>
+Os pontos de dados foram inclusos na lista de outliers por serem considerados anormais. Segundo o método usado, esses pontos de dados ficaram um passo alem da variação interquartil.
+</p>
+\end{verbatim}
+
+    \subsection{Transformação de
+Atributo}\label{transformauxe7uxe3o-de-atributo}
+
+Nesta seção, você irá utilizar a análise de componentes principais (PCA)
+para elaborar conclusões sobre a estrutura subjacente de dados de
+clientes do atacado. Dado que ao utilizar a PCA em conjunto de dados
+calcula as dimensões que melhor maximizam a variância, nós iremos
+encontrar quais combinações de componentes de atributos melhor descrevem
+os consumidores.
+
+    \subsubsection{Implementação: PCA}\label{implementauxe7uxe3o-pca}
+
+Agora que os dados foram escalonados em uma distribuição normal e
+qualquer discrepante necessário foi removido, podemos aplicar a PCA na
+\texttt{good\_data} para descobrir qual dimensão dos dados melhor
+maximizam a variância dos atributos envolvidos. Além de descobrir essas
+dimensões, a PCA também irá reportar a \emph{razão da variância
+explicada} de cada dimensão -- quanta variância dentro dos dados é
+explicada pela dimensão sozinha. Note que o componente (dimensão) da PCA
+pode ser considerado como um novo "feature" do espaço, entretanto, ele é
+uma composição do atributo original presente nos dados.
+
+No bloco de código abaixo, você vai precisar implementar o seguinte: -
+Importar o \texttt{sklearn.decomposition.PCA} e atribuir os resultados
+de ajuste da PCA em seis dimensões com o \texttt{good\_data} para o
+\texttt{pca}. - Aplicar a transformação da PCA na amostra de log-data
+\texttt{log\_samples} utilizando \texttt{pca.transform}, e atribuir os
+resultados para o \texttt{pca\_samples}.
+
+     O código de dimensionamento de atributos, tanto para os dados como para
+as amostras, foi corretamente implementado. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} from sklearn.decomposition import PCA}
+         \PY{c+c1}{\PYZsh{} TODO: Aplique a PCA ao ajustar os bons dados com o mesmo número de dimensões como atributos}
+         \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Transforme a amostra de data\PYZhy{}log utilizando o ajuste da PCA acima}
+         \PY{n}{pca\PYZus{}samples} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{log\PYZus{}samples}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Gere o plot dos resultados da PCA}
+         \PY{n}{pca\PYZus{}results} \PY{o}{=} \PY{n}{vs}\PY{o}{.}\PY{n}{pca\PYZus{}results}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{,} \PY{n}{pca}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variancia Acumulada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimensoes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} Text(0.5,0,'Dimensoes')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} total de variância das duas primeiras dimençoes}
+         \PY{n}{display}\PY{p}{(}\PY{n}{pca\PYZus{}results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Explained Variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+0.7252000000000001
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} total de variância das quatro primeiras dimençoes}
+         \PY{n}{display}\PY{p}{(}\PY{n}{pca\PYZus{}results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Explained Variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+0.8301000000000001
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} total de variância das quatro primeiras dimençoes}
+         \PY{n}{display}\PY{p}{(}\PY{n}{pca\PYZus{}results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Explained Variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+0.9279000000000001
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{pca\PYZus{}results}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}              Explained Variance   Fresh    Milk  Grocery  Frozen  \textbackslash{}
+         Dimension 1              0.4993 -0.0976  0.4109   0.4511 -0.1280   
+         Dimension 2              0.2259  0.6008  0.1370   0.0852  0.6300   
+         Dimension 3              0.1049 -0.7452  0.1544  -0.0204  0.2670   
+         Dimension 4              0.0978  0.2667  0.1375   0.0710 -0.7133   
+         Dimension 5              0.0488  0.0114  0.7083   0.3168  0.0671   
+         Dimension 6              0.0233 -0.0543 -0.5177   0.8267  0.0471   
+         
+                      Detergents\_Paper  Delicatessen  
+         Dimension 1            0.7595        0.1579  
+         Dimension 2           -0.0376        0.4634  
+         Dimension 3           -0.2349        0.5422  
+         Dimension 4           -0.3157        0.5445  
+         Dimension 5           -0.4729       -0.4120  
+         Dimension 6           -0.2080       -0.0094  
+\end{Verbatim}
+            
+     A variância explicada total para duas e quatro dimensões dos dados do
+PCA é corretamente relatada. As primeiras quatro dimensões são
+interpretadas como uma representação dos gastos do cliente com
+justificativa. 
+
+    \subsubsection{Questão 5}\label{questuxe3o-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Quanta variância nos dados é explicada \textbf{no total} pelo primeiro
+  e segundo componente principal?
+\item
+  Quanta variância nos dados é explicada pelos quatro primeiros
+  componentes principais?
+\item
+  Utilizando a visualização fornecida acima, discuta quais das quatro
+  primeiras dimensões que melhor representam em termos de despesas dos
+  clientes. Explique qual das quatro representa melhor em termos de
+  consumo dos clientes.
+\end{itemize}
+
+\textbf{Dica:} Uma melhora positiva dentro de uma dimensão específica
+corresponde a uma \emph{melhora} do atributos de \emph{pesos-positivos}
+e uma \emph{piora} dos atributos de \emph{pesos-negativos}. A razão de
+melhora ou piora é baseada nos pesos de atributos individuais.
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+Na visualização as dimensões 1 e 2 tiveram melhoras positiva. Dois atributos com os pesos negativos, prevendo mal as categorias Frios e Congelados na dimensão 1. Somente Detergentes/Papeis da dimensão 2 teve o peso negativo. Na dimensão 1 os Laticínios, Mercearia, Detergentes e Delicatessen tiveram melhoras.  Pode representar fornecedores de alimentos prontos para consumo. A variância das duas dimensões acumulou em 0,725.
+</p>
+<p>
+Adicionando as dimensões 3 e 4 começa a melhorar, indo para 0,927.  Os atributos voltam a indicar pesos negativos maiores, indicando uma piora para essas categorias havendo mais perda de informação nas categorias Frios com Detergentes/Papeis na dimensão 3 e Congelados com Detergentes/Papeis da dimensão 4. No plot de Variância Acumulada a partir da dimensão 2 a curva é menos acentuada se mantendo até a dimensão 4. 
+\end{verbatim}
+
+Por representar 73\% em termos de consumo dos clientes escolho a
+dimensão 2 como quem maximiza melhor a variância dos atributos. Os
+congelados são predominantes seguidos dos Frios e Delicatessen na
+dimensão 2 o que pode indicar clientes do ramo de restaurantes, padarias
+e fornecedores de alimento pronto.
+
+    \subsubsection{Observação}\label{observauxe7uxe3o}
+
+Execute o código abaixo para ver como a amostra de log transformado
+mudou depois de receber a transformação da PCA aplicada a ele em seis
+dimensões. Observe o valor numérico para as quatro primeiras dimensões
+para os pontos da amostra. Considere se isso for consistente com sua
+interpretação inicial dos pontos da amostra.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Exiba a amostra de log\PYZhy{}data depois de aplicada a tranformação da PCA}
+         \PY{n}{display}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{pca\PYZus{}samples}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{pca\PYZus{}results}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   Dimension 1  Dimension 2  Dimension 3  Dimension 4  Dimension 5  \
+0       4.4809       0.8020      -1.2612       0.2571       1.3043   
+1      -0.3980       2.8829      -1.0725      -0.9247       0.3976   
+2       1.1180       4.2872       1.0017      -0.9866       0.8195   
+
+   Dimension 6  
+0      -0.7119  
+1       0.3645  
+2       0.0756  
+    \end{verbatim}
+
+    
+    \subsubsection{Implementação: Redução da
+Dimensionalidade}\label{implementauxe7uxe3o-reduuxe7uxe3o-da-dimensionalidade}
+
+Ao utilizar um componente principal de análise, um dos objetivos
+principais é reduzir a dimensionalidade dos dados -- na realidade,
+reduzindo a complexidade do problema. Redução de dimensionalidade tem um
+custo: Poucas dimensões utilizadas implicam em menor variância total dos
+dados que estão sendo explicados. Por causo disso, a \emph{taxa de
+variância explicada cumulativa} é extremamente importante para saber
+como várias dimensões são necessárias para o problema. Além disso, se
+uma quantidade significativa de variância é explicada por apenas duas ou
+três dimensões, os dados reduzidos podem ser visualizados depois.
+
+No bloco de código abaixo, você vai precisar implementar o seguinte: -
+Atribuir os resultados de ajuste da PCA em duas dimensões com o
+\texttt{good\_data} para o \texttt{pca}. - Atribuir a tranformação da
+PCA do \texttt{good\_data} utilizando \texttt{pca.transform}, e atribuir
+os resultados para \texttt{reduced\_data}. - Aplicar a transformação da
+PCA da amostra do log-data \texttt{log\_samples} utilizando
+\texttt{pca.transform}, e atribuindo os resultados ao
+\texttt{pca\_samples}.
+
+     O código do PCA foi corretamente implementado e aplicado, tanto para os
+dados dimensionados como para as amostras dimensionadas, no caso
+bidimensional. 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} TODO: Aplique o PCA ao ajusta os bons dados com apenas duas dimensões}
+         \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Transforme os bons dados utilizando o ajuste do PCA acima}
+         \PY{n}{reduced\PYZus{}data} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Transforme a amostre de log\PYZhy{}data utilizando o ajuste de PCA acima}
+         \PY{n}{pca\PYZus{}samples} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{log\PYZus{}samples}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Crie o DataFrame para os dados reduzidos}
+         \PY{n}{reduced\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimension 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimension 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{display}\PY{p}{(}\PY{n}{vs}\PY{o}{.}\PY{n}{pca\PYZus{}results}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{,} \PY{n}{pca}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+             Explained Variance   Fresh    Milk  Grocery  Frozen  \
+Dimension 1              0.4993 -0.0976  0.4109   0.4511  -0.128   
+Dimension 2              0.2259  0.6008  0.1370   0.0852   0.630   
+
+             Detergents_Paper  Delicatessen  
+Dimension 1            0.7595        0.1579  
+Dimension 2           -0.0376        0.4634  
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Observação}\label{observauxe7uxe3o}
+
+Execute o código abaixo para ver como a amostra de dados do
+log-transformado mudou depois de receber a transformação do PCA aplicada
+a ele em apenas duas dimensões. Observe como os valores das duas
+primeiras dimensões permanessem constantes quando comparados com a
+transformação do PCA em seis dimensões.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Exiba a amostra de log\PYZhy{}data depois de aplicada a transformação da PCA em duas dimensões}
+         \PY{n}{display}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{pca\PYZus{}samples}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimension 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dimension 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   Dimension 1  Dimension 2
+0       4.4809       0.8020
+1      -0.3980       2.8829
+2       1.1180       4.2872
+    \end{verbatim}
+
+    
+    \subsection{Visualizando um Biplot}\label{visualizando-um-biplot}
+
+Um biplot é um gráfico de dispersão onde cada ponto é representado por
+sua pontuação junto das componentes principais. Os eixos são as
+componentes principais (nesse caso, \texttt{Dimension\ 1} e
+\texttt{Dimenson\ 2}). Além disso, o biplot mostra a projeção dos
+atributos originais junto das componentes. Um biplot pode nos ajudar a
+interpretar a redução da dimensionalidade dos dados e descobrir
+relacionamentos entre as componentes principais e os atributos
+originais.
+
+Execute a célula abaixo para produzir um biplot com os dados de
+dimensionalidade reduzida.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} Create a biplot}
+         \PY{n}{vs}\PY{o}{.}\PY{n}{biplot}\PY{p}{(}\PY{n}{good\PYZus{}data}\PY{p}{,} \PY{n}{reduced\PYZus{}data}\PY{p}{,} \PY{n}{pca}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a171f9350>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Clustering}\label{clustering}
+
+Nesta seção, você irá escolher utilizar entre o algoritmo de clustering
+K-Means ou o algoritmo de clustering do Modelo de Mistura Gaussiano para
+identificar as várias segmentações de clientes escondidos nos dados.
+Então você irá recuperar pontos de dados específicos do cluster para
+entender seus significados ao transformá-los de volta em suas dimensões
+e escalas originais.
+
+    \subsubsection{Questão 6}\label{questuxe3o-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Quais são as vantagens de utilizar o algoritmo de clustering K-Means?
+\item
+  Quais são as vantagens de utilizar o algoritmo de clustering do Modelo
+  de Mistura Gaussiano?
+\item
+  Dadas as suas observações até agora sobre os dados de clientes da
+  distribuidora, qual dos dois algoritmos você irá utilizar e por quê.
+\end{itemize}
+
+\textbf{Dica: }Pense na diferença entre os clusters mais próximos ou
+mais isolados.
+
+     Os algoritmos GMM e k-means são comparados em detalhes. A escolha do
+aluno é justificada com base nas características do algoritmo e dos
+dados. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+    Abaixo implementei um gráfico Coeficiênte GMM & K-means plotando os coeficientes dos dois algoritmos.
+</p>
+<p>
+    Fiz a implementação dos dois, pois são fáceis. Mas escolho K-means por ter maiores vantagens e menores desvantagens, como listei abaixo:
+</p>
+<p>
+    <strong>Vantagem do agrupamento K-means</strong>
+</p>
+\end{verbatim}
+
+\begin{verbatim}
+<li>Fácil de implementar</li>
+<li>Computacionamente rapido</li>
+<li>Agrupamento mais refinado, pois dados no mesmo cluster têm uma distância menor que os dados que estão em outros cluster.</li>
+<li>Minimiza a distância entre os dados no mesmo cluster.</li>
+<li>Mais eficiente segundo o grafico.</li>
+<li>Por calcular a medias dos pontos para um determinado cluster, o custo computacional é baixo para a distância de cada ponto.</li>
+\end{verbatim}
+
+\begin{verbatim}
+<p>
+    <strong>Desvantagem do clustering K-means</strong>
+</p>
+\end{verbatim}
+
+\begin{verbatim}
+<li>A distância entre os pontos não é eficiente para outlier.</li>
+<li>Rígido, um ponto de dados pertence a um cluster especifico.</li>
+\end{verbatim}
+
+\begin{verbatim}
+<p>
+    <strong>Vantagem do agrupamento GMM</strong>
+</p>
+\end{verbatim}
+
+\begin{verbatim}
+<li>Fácil de implementar</li>
+<li>Encontrar parâmetros que maximizem as probabilidades.</li>
+<li>Flexível. Os pontos de dados podem ser atribuídos a vários clusters de uma só vez, dada uma certa probabilidade.</li>
+\end{verbatim}
+
+\begin{verbatim}
+<p>
+    <strong>Desvantagem do agrupamento GMM</strong>
+</p>
+\end{verbatim}
+
+\begin{verbatim}
+<li>Menos eficiente segundo o grafico.</li>
+<li>Difícil estimar valores para os diferentes parâmetros do modelo.</li>
+<li>Computacionamente, não é tão rápido quanto K-means, mas mantem uma boa velocidade.</li>
+<li>Como fornece uma serie de probabilidades, o custo computacional é alto para a distância de cada ponto.</li>
+\end{verbatim}
+
+    \subsubsection{Implementação: Criando
+Clusters}\label{implementauxe7uxe3o-criando-clusters}
+
+Dependendo do problema, o número de clusters que você espera que estejam
+nos dados podem já ser conhecidos. Quando um número de clusters não é
+conhecido \emph{a priori}, não há garantia que um dado número de
+clusters melhor segmenta os dados, já que não é claro quais estruturas
+existem nos dados -- se existem. Entretanto, podemos quantificar a
+"eficiência" de um clustering ao calcular o \emph{coeficiente de
+silhueta} de cada ponto de dados. O
+\href{http://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html}{coeficiente
+de silhueta} para um ponto de dado mede quão similar ele é do seu
+cluster atribuído, de -1 (não similar) a 1 (similar). Calcular a
+\emph{média} do coeficiente de silhueta fornece um método de pontuação
+simples de um dado clustering.
+
+No bloco de código abaixo, você vai precisar implementar o seguinte: -
+Ajustar um algoritmo de clustering para o \texttt{reduced\_data} e
+atribui-lo ao \texttt{clusterer}. - Prever o cluster para cada ponto de
+dado no \texttt{reduced\_data} utilizando o \texttt{clusterer.predict} e
+atribuindo eles ao \texttt{preds}. - Encontrar os centros do cluster
+utilizando o atributo respectivo do algoritmo e atribuindo eles ao
+\texttt{centers}. - Prever o cluster para cada amostra de pontos de dado
+no \texttt{pca\_samples} e atribuindo eles ao \texttt{sample\_preds}. -
+Importar sklearn.metrics.silhouette\_score e calcular o coeficiente de
+silhueta do \texttt{reduced\_data} contra o do \texttt{preds}. -
+Atribuir o coeficiente de silhueta para o \texttt{score} e imprimir o
+resultado.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{sGMM} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{sKMeans} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             
+         \PY{k}{for} \PY{n}{components} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Aplique o algoritmo de clustering de sua escolha aos dados reduzidos }
+             \PY{n}{clustererGMM} \PY{o}{=} \PY{n}{GMM}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{components}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{)}
+             \PY{n}{clustererKMeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{components}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Preveja o cluster para cada ponto de dado}
+             \PY{n}{predsGMM} \PY{o}{=} \PY{n}{clustererGMM}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{)}
+             \PY{n}{predsKMeans} \PY{o}{=} \PY{n}{clustererKMeans}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} TODO: Ache os centros do cluster}
+             \PY{n}{centersGMM} \PY{o}{=} \PY{n}{clustererGMM}\PY{o}{.}\PY{n}{means\PYZus{}}
+             \PY{n}{centersKMeans} \PY{o}{=} \PY{n}{clustererKMeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+         
+             \PY{c+c1}{\PYZsh{} TODO: Preveja o cluster para cada amostra de pontos de dado transformados}
+             \PY{n}{sample\PYZus{}predsGMM} \PY{o}{=} \PY{n}{clustererGMM}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{pca\PYZus{}samples}\PY{p}{)}
+             \PY{n}{sample\PYZus{}predsKMeans} \PY{o}{=} \PY{n}{clustererKMeans}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{pca\PYZus{}samples}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} TODO: Calcule a média do coeficiente de silhueta para o número de clusters escolhidos}
+             \PY{n}{scoreGMM} \PY{o}{=} \PY{n}{silhouette\PYZus{}score}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{,} \PY{n}{predsGMM}\PY{p}{)}
+             \PY{n}{scoreKMeans} \PY{o}{=} \PY{n}{silhouette\PYZus{}score}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{,} \PY{n}{predsKMeans}\PY{p}{)}
+             
+             \PY{n}{sGMM}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{scoreGMM}\PY{p}{)}
+             \PY{n}{sKMeans}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{scoreKMeans}\PY{p}{)}
+             \PY{n}{n\PYZus{}clusters}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{components}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:58: DeprecationWarning: Class GMM is deprecated; The class GMM is deprecated in 0.18 and will be  removed in 0.20. Use class GaussianMixture instead.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function distribute\_covar\_matrix\_to\_match\_covariance\_type is deprecated; The function distribute\_covar\_matrix\_to\_match\_covariance\_typeis deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+/Users/alessandremartins/anaconda/envs/py27/lib/python2.7/site-packages/sklearn/utils/deprecation.py:77: DeprecationWarning: Function log\_multivariate\_normal\_density is deprecated; The function log\_multivariate\_normal\_density is deprecated in 0.18 and will be removed in 0.20.
+  warnings.warn(msg, category=DeprecationWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{comp\PYZus{}scores} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+             \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score GMM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sGMM}\PY{p}{,}
+              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score KMeans}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{sKMeans}
+             \PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{n\PYZus{}clusters}\PY{p}{)}
+         \PY{n}{comp\PYZus{}scores}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}     Score GMM  Score KMeans
+         2    0.443601      0.447158
+         3    0.357295      0.363986
+         4    0.291646      0.331151
+         5    0.263136      0.351333
+         6    0.311042      0.363650
+         7    0.298799      0.355837
+         8    0.294627      0.377933
+         9    0.307903      0.367516
+         10   0.251895      0.333163
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{comp\PYZus{}scores}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coeficiente GMM \PYZam{} K\PYZhy{}means}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a174592d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_80_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Questão 7}\label{questuxe3o-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Reporte o coeficiente de silhueta para vários números de cluster que
+  você tentou.
+\item
+  Dentre eles, qual a quantidade de clusters que tem a melhor pontuação
+  de silhueta?
+\end{itemize}
+
+     Diversas pontuações são corretamente relatadas, e o número ótimo de
+grupos é escolhido com base na melhor. A visualização escolhida mostra o
+número ótimo de grupos baseado no algoritmo de clustering escolhido. 
+
+    \textbf{Resposta:} Para essa tarefa escolhi fala do algoritmo K-means. O
+melhor coeficiente foi para 2 clusters ficando: 2 clusters = 0.447, 3
+clusters = 0.363, 4 clusters = 0.331, 5 clusters = 0.351, 6 clusters =
+363, 7 clusters = 0.355, 8 clusters = 0.377, 9 clusters = 0.367 e 10
+clusters = 0.333. 
+
+    \subsubsection{Visualização de
+Cluster}\label{visualizauxe7uxe3o-de-cluster}
+
+Uma vez que você escolheu o número ótimo de clusters para seu algoritmo
+de clustering utilizando o método de pontuação acima, agora você pode
+visualizar os resultados ao executar o bloco de código abaixo. Note que,
+para propósitos de experimentação, é de bom tom que você ajuste o número
+de clusters para o seu algoritmo de cluster para ver várias
+visualizações. A visualização final fornecida deve, entretanto,
+corresponder com o número ótimo de clusters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Mostre os resultados do clustering da implementação}
+         \PY{n}{vs}\PY{o}{.}\PY{n}{cluster\PYZus{}results}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{,} \PY{n}{predsKMeans}\PY{p}{,} \PY{n}{centersKMeans}\PY{p}{,} \PY{n}{pca\PYZus{}samples}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Implementação: Recuperação de
+Dados}\label{implementauxe7uxe3o-recuperauxe7uxe3o-de-dados}
+
+Cada cluster apresentado na visualização acima tem um ponto central.
+Esses centros (ou médias) não são especificamente pontos de dados não
+específicos dos dados, em vez disso, são \emph{as médias} de todos os
+pontos estimados em seus respectivos clusters. Para o problema de criar
+segmentações de clientes, o ponto central do cluster corresponde \emph{a
+média dos clientes daquele segmento}. Já que os dados foram atualmente
+reduzidos em dimensões e escalas por um algoritmo, nós podemos recuperar
+a despesa representativa do cliente desses pontos de dados ao aplicar
+transformações inversas.
+
+No bloco de código abaixo, você vai precisar implementar o seguinte: -
+Aplicar a transformação inversa para o \texttt{centers} utilizando o
+\texttt{pca.inverse\_transform}, e atribuir novos centros para o
+\texttt{log\_centers}. - Aplicar a função inversa do \texttt{np.log}
+para o \texttt{log\_centers} utilizando \texttt{np.exp}, e atribuir os
+verdadeiros centros para o \texttt{true\_centers}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} TODO: Transforme inversamento os centros}
+         \PY{n}{log\PYZus{}centers} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{centersKMeans}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} TODO: Exponencie os centros}
+         \PY{n}{true\PYZus{}centers} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{n}{log\PYZus{}centers}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Mostre os verdadeiros centros}
+         \PY{n}{segments} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segment \PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{centersKMeans}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{true\PYZus{}centers} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{true\PYZus{}centers}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{true\PYZus{}centers}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{segments}
+         \PY{n}{display}\PY{p}{(}\PY{n}{true\PYZus{}centers}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+            Fresh    Milk  Grocery  Frozen  Detergents_Paper  Delicatessen
+Segment 0  5424.0  7780.0  11532.0  1123.0            4444.0        1136.0
+Segment 1  9451.0  1938.0   2449.0  2200.0             307.0         771.0
+    \end{verbatim}
+
+    
+    \subsubsection{Questão 8}\label{questuxe3o-8}
+
+\begin{itemize}
+\tightlist
+\item
+  Considere o gasto total de compra de cada categoria de produto para os
+  pontos de dados representativos acima e reporte a descrição
+  estatística do conjunto de dados no começo do projeto. Qual conjunto
+  de estabelecimentos cada segmentação de clientes representa?
+\end{itemize}
+
+\textbf{Dica:} Um cliente que é atribuído ao
+\texttt{\textquotesingle{}Cluster\ X\textquotesingle{}} deve se
+identificar melhor com os estabelecimentos representados pelo conjunto
+de atributos do \texttt{\textquotesingle{}Segment\ X\textquotesingle{}}.
+Pense no que cada segmento representa em termos do ponto de atributo
+escolhido.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{sharex} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{x1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segment 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{true\PYZus{}centers}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{true\PYZus{}centers}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{x1}\PY{p}{)}
+         \PY{n}{x2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Segment 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{true\PYZus{}centers}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{true\PYZus{}centers}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{x2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a18b5e810>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_89_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     Os grupos representados por cada segmento da clientela são propostos
+com base na descrição estatística do conjunto de dados. Os códigos de
+transformação e dimensionamento inversos foi corretamente implementado e
+aplicado para o centro dos grupos. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+Considerando os custos totais de cada categoria, os clusters representam dois grupos com hábitos de compra, um que compra muito em produtos de Mercearia e outro em produtos Frescos.</p>
+<p>
+Segment 0: Sugiro que representa supermercados e lojas varejistas pois tem alta tendencia para comprar produtos de Mercearia e Laticínios seguidos de produtos Frescos.</p>
+<p>
+Segment 1: Acredito que sejam restaurantes em geral(podem está em shoppings, hoteis, fabricas e outros) e economizando nas demais categorias.</p>
+\end{verbatim}
+
+    \subsubsection{Questão 9}\label{questuxe3o-9}
+
+\begin{itemize}
+\tightlist
+\item
+  Para cada amostra de ponto, qual segmento de cliente da
+  \textbf{Questão 8} é melhor representado?
+\item
+  As previsões para cada amostra de ponto são consistentes com isso?
+\end{itemize}
+
+Execute o bloco de códigos abaixo para saber a previsão de segmento para
+cada amostra de ponto.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Mostre as previsões}
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{pred} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{sample\PYZus{}predsKMeans}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample point}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{predicted to be in Cluster}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{pred}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Sample point 0 predicted to be in Cluster 0
+Sample point 1 predicted to be in Cluster 1
+Sample point 2 predicted to be in Cluster 0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{fig}\PY{p}{,} \PY{p}{(}\PY{n}{x1}\PY{p}{,} \PY{n}{x2}\PY{p}{,} \PY{n}{x3}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{sharex} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{x1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ponto 0 (index 86)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{samples}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{samples}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{x1}\PY{p}{)}
+         \PY{n}{x2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ponto 1 (index 125)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{samples}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{samples}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{x2}\PY{p}{)}
+         \PY{n}{x3}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ponto 2 (index 325)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{samples}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{samples}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{x3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a16a3cf50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+     Os grupos representados por cada segmento da clientela são propostos
+com base na descrição estatística do conjunto de dados. Os códigos de
+transformação e dimensionamento inversos foi corretamente implementado e
+aplicado para o centro dos grupos. 
+
+    \textbf{Resposta:}
+
+O ponto 0 pertence ao seguimento 0, possivelmente um varejistas
+fortemente ligada a derivados derivados de leite.
+
+O ponto 1 pertence ao seguimento 1, possivelmente um restaurante.
+
+O ponto 2 pertence ao seguimento 0, possivelmente um supermercado.
+
+    \subsection{Conclusão}\label{conclusuxe3o}
+
+    Nesta seção final, você irá investigar maneiras de fazer uso dos dados
+que estão em clusters. Primeiro você vai considerar quais são os
+diferentes grupos de clientes, a \textbf{segmentação de clientes}, que
+pode ser afetada diferentemente por um esquema de entrega específico.
+Depois, você vai considerar como dar um rótulo para cada cliente (qual
+\emph{segmento} aquele cliente pertence), podendo fornecer atributos
+adicionais sobre os dados do cliente. Por último, você vai comparar a
+\textbf{segmentação de clientes} com uma variável escondida nos dados,
+para ver se o cluster identificou certos tipos de relação.
+
+    \subsubsection{Questão 10}\label{questuxe3o-10}
+
+Empresas sempre irão executar os
+\href{https://en.wikipedia.org/wiki/A/B_testing}{testes A/B} ao fazer
+pequenas mudanças em seus produtos ou serviços para determinar se ao
+fazer aquela mudança, ela afetará seus clientes de maneira positiva ou
+negativa. O distribuidor de atacado está considerando mudar seu serviço
+de entrega de atuais 5 dias por semana para 3 dias na semana. Mas o
+distribuidor apenas fará essa mudança no sistema de entrega para os
+clientes que reagirem positivamente. - Como o distribuidor de atacado
+pode utilizar a segmentação de clientes para determinar quais clientes,
+se há algum, que serão alcançados positivamente à mudança no serviço de
+entrega?
+
+\textbf{Dica:} Podemos supor que as mudanças afetam todos os clientes
+igualmente? Como podemos determinar quais grupos de clientes são os mais
+afetados?
+
+     O aluno identifica corretamente como um teste A/B pode ser feito com a
+clientela após uma mudança no serviço de distribuição. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+    Temos dois grandes segmentos previstos pelo modelo que são referentes as categorias de produtos de Mercearia e o outro de produtos Frescos.</p>
+<p>
+    O Seguimento 0 pode ser flexível com as entregas, pois a maioria dos seus produtos são de prazo de validade maior. Esses podem receber suas entregas 3 vezes por semana.</p>
+<p>
+    Um fator criterioso para definir as entregas é que produtos fresco tem a qualidade vinculada ao tempo. Precisam ser entregues diariamente. Portanto, as entregas para os clientes do Segment 1 são obrigatoriamente diárias para manter um bom padrão de qualidade de seus produtos.</p>
+<p>
+    Uma variável oculta é o horário de entrega. De maneira que os produtos frescos teriam que ser entregues antes dos horários de funcionamento dos clientes. Não faz sentido entregar alimento fresco no meio ou no fim do expediente, pois já não usariam a maior parte desses produtos no mesmo dia, gerando prejuízo ao cliente.</p>
+<p>
+    Eu sou a favor de manter os testes A/B constantes nas operações de entrega e medir a satisfação pelo serviços para evitar qualquer tipo de coincidências que possam ocorrer. Isso nos dará informações mais confiáveis e ampliará nosso conjunto de dados. Para garantir a sobrevida do atacadista, não acho interessante limitar os testes A/B somente aos dois clusters ou segmentos. Portanto, observamos a satisfação dos clientes na troca do período de entrega em um determinado período de tempo para obtermos conclusões significativas sobre o impacto da troca do prazo de entrega.</p>
+\end{verbatim}
+
+    \subsubsection{Questão 11}\label{questuxe3o-11}
+
+A estrutura adicional é derivada dos dados não rotulados originalmente
+quando utilizado as técnicas de clustering. Dado que cada cliente tem um
+\textbf{segmento de cliente} que melhor se identifica (dependendo do
+algoritmo de clustering aplicado), podemos considerar os \emph{segmentos
+de cliente} como um \textbf{atributo construído (engineered)} para os
+dados. Assumindo que o distribuidor de atacado adquiriu recentemente dez
+novos clientes e cada um deles forneceu estimativas dos gastos anuais
+para cada categoria de produto. Sabendo dessas estimativas, o
+distribuidor de atacado quer classificar cada novo cliente em uma
+\textbf{segmentação de clientes} para determinar o serviço de entrega
+mais apropriado.\\
+- Como o distribuidor de atacado pode rotular os novos clientes
+utilizando apenas a estimativa de despesas com produtos e os dados de
+\textbf{segmentação de clientes}.
+
+\textbf{Dica:} Um aprendiz supervisionado pode ser utilizado para
+treinar os clientes originais. Qual seria a variável alvo?
+
+     O aluno discute e justifica como os dados de clustering podem ser
+usados em um modelo de aprendizagem supervisionada para fazer novas
+estimativas. 
+
+    \textbf{Resposta:}
+
+Como já temos do modelo que foram criadas no bloco de código de criação
+de clusters, em cada cliente novo eu aplico as predições no bloco de
+código que mostra as previsões. O bloco de previsões pode ser usado para
+prever o segmento de clientes para novos clientes, possibilitando a
+escolha do serviço de entrega mais apropriado.
+
+    \subsubsection{Visualizando Distribuições
+Subjacentes}\label{visualizando-distribuiuxe7uxf5es-subjacentes}
+
+No começo deste projeto, foi discutido que os atributos
+\texttt{\textquotesingle{}Channel\textquotesingle{}} e
+\texttt{\textquotesingle{}Region\textquotesingle{}} seriam excluídos do
+conjunto de dados, então as categorias de produtos do cliente seriam
+enfatizadas na análise. Ao reintroduzir o atributo
+\texttt{\textquotesingle{}Channel\textquotesingle{}} ao conjunto de
+dados, uma estrutura interessante surge quando consideramos a mesma
+redução de dimensionalidade da PCA aplicada anteriormente no conjunto de
+dados original.
+
+Execute o código abaixo para qual ponto de dados é rotulado
+como\texttt{\textquotesingle{}HoReCa\textquotesingle{}}
+(Hotel/Restaurante/Café) ou o espaço reduzido
+\texttt{\textquotesingle{}Retail\textquotesingle{}}. Al´´em disso, você
+vai encontrar as amostras de pontos circuladas no corpo, que
+identificará seu rótulo.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{} Mostre os resultados do clustering baseado nos dados do \PYZsq{}Channel\PYZsq{}}
+         \PY{n}{vs}\PY{o}{.}\PY{n}{channel\PYZus{}results}\PY{p}{(}\PY{n}{reduced\PYZus{}data}\PY{p}{,} \PY{n}{outliers}\PY{p}{,} \PY{n}{pca\PYZus{}samples}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Questão 12}\label{questuxe3o-12}
+
+\begin{itemize}
+\tightlist
+\item
+  Quão bom é o algoritmo de clustering e o números de clusters que você
+  escolheu comparado a essa distribuição subjacente de clientes de
+  Hotel/Restaurante/Café a um cliente Varejista?
+\item
+  Há segmentos de clientes que podem ser classificados puramente como
+  'Varejistas' ou 'Hotéis/Restaurantes/Cafés' nessa distribuição?
+\item
+  Você consideraria essas classificações como consistentes comparada a
+  sua definição de segmentação de clientes anterior?*
+\end{itemize}
+
+     Os segmentos da clientela e os dados em Channel são comparados. Os
+segmentos identificados pelos dados de Channel são discutidos, inclusive
+se essa representação é consistente com resultados anteriores. 
+
+    \textbf{Resposta:}
+
+\begin{verbatim}
+    O gráfico separa de forma semelhante ao modelo os três círculos indicando os pontos da amostra que escolhi no inicio. Também podemos identificar que dois pontos não estão presentes (mesmo com os círculos marcados no gráfico). Foram removidos por serem outliers na questão 4, mudando os valores dos seus respectivos indices. A distribuição se relaciona bem com o clusters previstos no modelo qua utiliza algoritmos Kmeans.</p>
+<p>
+    O ponto 1 afirma ser um restaurante, portanto confirma a previsão do modelo proposto, mostrando parcialmente que o algoritmo K-means foi bom na distribuição dos clientes.</p>
+<p>
+    Nessa distribuição tem um grau de disparidade com o algoritmo K-means, mas podemos identificar clientes que são especificamente ‘Varejistas’ ou ‘Hotéis/Restaurantes/Cafés’.</p>
+<p>
+    Considero essa classificação sólida comparada com a definição de clientes que obtive nas Questões anteriores.</p>
+\end{verbatim}
+
+    \begin{quote}
+\textbf{Nota}: Uma vez que você completou todas as implementações de
+código e respondeu todas as questões acima com êxito, você pode
+finalizar seu trabalho exportando um iPython Notebook como um documento
+HTML. Você pode fazer isso utilizando o menu acima e navegando até\\
+\textbf{File -\textgreater{} Download as -\textgreater{} HTML (.html)}.
+Inclua o documento finalizado junto com esse Notebook para o seu envio.
+\end{quote}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
